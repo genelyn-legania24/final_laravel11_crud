@@ -11,5 +11,6 @@ protected $fillable = [
 'quantity',
 'price',
 'description'
+,'image'
 ];
 }

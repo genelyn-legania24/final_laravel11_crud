@@ -16,6 +16,7 @@ $table->string('name');
 $table->integer('quantity');
 $table->decimal('price', 8, 2);
 $table->text('description')->nullable();
+$table->string('image');
 $table->timestamps();
 });
 }

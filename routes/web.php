@@ -14,12 +14,12 @@ Route::get('/', function () {
 Route::resource('products', ProductController::class);
 
 // Add a route for the login page (GET for form display)
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('Authentication.login'); // Ensure login.blade.php is in resources/views/Authentication/
 })->name('login');
 
 // Add a POST route for handling login form submission
-Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+Route::post('/', [LoginController::class, 'login'])->name('login.submit');
 
 // Add a route for the register page (GET for form display)
 Route::get('/register', function () {

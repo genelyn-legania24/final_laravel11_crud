@@ -30,8 +30,16 @@ return view('products.create');
 public function store(StoreProductRequest $request) :
 RedirectResponse
 {
-Product::create($request->validated());
+$image = $request->validated();
+
+if($request->hasFile('image')) {
+$imagePath = $request->file('image')->store('images', 'public');
+$image['image'] = $imagePath;
+
+}
+Product::create($image);
 return redirect()->route('products.index')
+
 ->withSuccess('New product is added successfully.');
 }
 /**
@@ -54,7 +62,14 @@ return view('products.edit', compact('product'));
 public function update(UpdateProductRequest $request, Product
 $product) : RedirectResponse
 {
-$product->update($request->validated());
+$image = $request->validated();
+if($request->hasFile('image')) {
+$imagePath = $request->file('image')->store('images', 'public');
+$image['image'] = $imagePath;
+}else { 
+$image['image'] = $product->image;
+}
+$product->update($image);
 return redirect()->back()
 ->withSuccess('Product is updated successfully.');
 

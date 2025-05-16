@@ -1,13 +1,15 @@
 @extends('layouts.app')
-@section('content')
 
+@section('content')
 <div class="row justify-content-center mt-3">
     <div class="col-md-8">
-        @session('success')
-        <div class="alert alert-success" role="alert">
-            {{ $value }}
-        </div>
-        @endsession
+
+        @if(session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="card">
             <div class="card-header">
                 <div class="float-start">
@@ -18,10 +20,11 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{ route('products.update', $product->id) }}" method="post">
+                <form action="{{ route('products.update', $product->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method("PUT")
 
+                    <!-- Code -->
                     <div class="mb-3 row">
                         <label for="code" class="col-md-4 col-form-label text-md-end text-start">Code</label>
                         <div class="col-md-6">
@@ -32,6 +35,7 @@
                         </div>
                     </div>
 
+                    <!-- Name -->
                     <div class="mb-3 row">
                         <label for="name" class="col-md-4 col-form-label text-md-end text-start">Name</label>
                         <div class="col-md-6">
@@ -42,6 +46,7 @@
                         </div>
                     </div>
 
+                    <!-- Quantity -->
                     <div class="mb-3 row">
                         <label for="quantity" class="col-md-4 col-form-label text-md-end text-start">Quantity</label>
                         <div class="col-md-6">
@@ -52,6 +57,7 @@
                         </div>
                     </div>
 
+                    <!-- Price -->
                     <div class="mb-3 row">
                         <label for="price" class="col-md-4 col-form-label text-md-end text-start">Price</label>
                         <div class="col-md-6">
@@ -62,6 +68,7 @@
                         </div>
                     </div>
 
+                    <!-- Description -->
                     <div class="mb-3 row">
                         <label for="description" class="col-md-4 col-form-label text-md-end text-start">Description</label>
                         <div class="col-md-6">
@@ -72,6 +79,19 @@
                         </div>
                     </div>
 
+
+                    <!-- New Image Upload -->
+                    <div class="mb-3 row">
+                        <label for="image" class="col-md-4 col-form-label text-md-end text-start">Change Image</label>
+                        <div class="col-md-6">
+                            <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
+                            @error('image')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
                     <div class="mb-3 row">
                         <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Update">
                     </div>
